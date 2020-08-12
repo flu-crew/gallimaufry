@@ -1,6 +1,15 @@
 # gallimaufry
 A collection of useful scripts
 
+## Requirements
+
+The scripts in this repo should run on any UNIX system (Linux or MacOS).
+
+The scripts in this repo use the following command line tools:
+
+ * `mafft` - a popular sequence alignment tool
+ * `smof` - a sequence manipulation utility available on PyPi
+
 
 ## Extract HA1 regions
 
