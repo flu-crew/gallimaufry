@@ -36,13 +36,13 @@ The script 'antigenic_motif.py' extracts the antigenic sites from aligned H1 nuc
 It will convert the nucleotide data into amino acid sequence and will extract the relevant sites.
 Sites are extracted based on H1 numbering.
 List of sites:
-'''Ca-1	169	173	207					
+```Ca-1	169	173	207					
 Ca-2	140	143	145	224	225			
 Cb	78	79	80	81	82	83	122	
 Sa	128	129	158	160	162	163	165	167
 Sb	156	159	192	193	196	198	
 
 For input file, align your H1 nucleotide data.
-Run it as, python antigenic_motif.py aligned_input.fasta'''
+Run it as, python antigenic_motif.py aligned_input.fasta
 
-Output will be written to aligned_input.fasta-AB-AntigenicSites.txt
+Output will be written to aligned_input.fasta-AB-AntigenicSites.txt```
