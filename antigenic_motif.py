@@ -14,12 +14,12 @@ def read_fasta(fp):
     if name: yield (name, ''.join(seq))
 
 def write_file(data):
-    output = filename+"-AB-AntigenicMotif.txt"
+    output = filename+"-AB-AntigenicSites.txt"
     with open(output, 'a') as out_file:
         #print(len(protein))
         out_file.write(str(name + " Sa ") + str(protein[128])+ " " + str(protein[129])+ " " + str(protein[158])+ " " + str(protein[160])+ " " + str(protein[162])+ " " + str(protein[163])+ " " + str(protein[165])+ " "+ str(protein[167]+"\n")+ str(name + " Sb ") + str(protein[156]) + " " + str(protein[159])+" " + str(protein[192])+ " "+ str(protein[193]) + " " + str(protein[196]) + " " + str(protein[198] + "\n") + str(name + " Ca-1 ")+ str(protein[169])+ " "+ str(protein[173])+ " "+ str(protein[207]+"\n")+ str(name + " Ca-2 ")+ str(protein[140])+ " "+ str(protein[143])+ " "+ str(protein[145])+ " "+ str(protein[224])+ " "+ str(protein[225]+"\n")+ str(name + " Cb ")+ " "+ str(protein[78])+ " "+ str(protein[79])+ " "+ str(protein[80])+ " "+ str(protein[81])+ " "+ str(protein[82])+ " "+ str(protein[83])+ " "+ str(protein[122]+"\n"))
 def write_header(header):
-    output = filename+"-AB-AntigenicMotif.txt"
+    output = filename+"-AB-AntigenicSites.txt"
     with open(output, 'w') as out_file: 
          out_file.write(header)
     
