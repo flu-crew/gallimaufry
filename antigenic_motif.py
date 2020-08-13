@@ -182,8 +182,4 @@ for filename in glob.glob(inputfile):
                         protein += table[codon]
                 print(len(protein))
                 write_file(protein)
-                # output=open(filename+"-antigenic_moif.txt", "w")
-                # output.write(str(name + ":") + str(protein[144])+ " " + str(protein[154]) + " " + str(protein[155]) + " " + str(protein[157]) + " " + str(protein[158]) + " " + str(protein[188]))
-
-                # print(str(name + ":") + str(protein[144])+ " " + str(protein[154]) + " " + str(protein[155]) + " " + str(protein[157]) + " " + str(protein[158]) + " " + str(protein[188]))
-        # output.close()C
+                
