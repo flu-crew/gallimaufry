@@ -20,6 +20,8 @@ parser.add_argument('-g2', type=str, action='store', dest='group2',
                     help='REGEX to specify the SECOND group of sequences', required=True)
 parser.add_argument('-i', '--ignore-gaps', action='store_true', dest='ignore_gaps',
                     help="Doesn't count the mismatches between two sequences when one is a gap")
+parser.add_argument('-p', action='store', dest='pairwise_mat',
+                    help='Specify a path to output a pairwise comparison log file.')
 parser.add_argument('--max-comp', action='store', dest='max_comp', type=int,
                     help="The maximum number of pairwise comparisons to make (Default: 1000)", default=1000)
 
@@ -28,7 +30,7 @@ def compute_distance(r1: SeqRecord, r2: SeqRecord, ignore_gaps: bool):
     dist = 0
     for i, l1 in enumerate(r1.seq):
         l2 = r2.seq[i]
-        if l1 == '-' or l2 == '-' and ignore_gaps:
+        if (l1 == '-' or l2 == '-') and ignore_gaps:
             continue
         if l1 != l2:
             dist += 1
@@ -56,7 +58,13 @@ def parse_args():
     if args.max_comp < 1:
         parser.error('max_comp has to be a positive integer')
 
+    output_log = None
+    if args.pairwise_mat:
+        output_log = open(args.pairwise_mat, 'w')
+        output_log.write('sequence1, sequence2, hamming_distance, %_dist\n')
+
     ignore_gaps = args.ignore_gaps
+    aln_len = len(g1[0].seq)
 
     distances = []
     if len(g1) * len(g2) > args.max_comp:
@@ -64,17 +72,25 @@ def parse_args():
         for i in range(args.max_comp):
             r1 = rnd.choice(g1)
             r2 = rnd.choice(g2)
-            distances.append(compute_distance(r1, r2, ignore_gaps))
+            dist = compute_distance(r1, r2, ignore_gaps)
+            distances.append(dist)
+            if output_log:
+                output_log.write(f'{r1.id}, {r2.id}, {dist}, {round(dist / aln_len, 3)}\n')
     else:
         for r1 in g1:
             for r2 in g2:
-                distances.append(compute_distance(r1, r2, ignore_gaps))
-    aln_len = len(g1[0].seq)
+                dist = compute_distance(r1, r2, ignore_gaps)
+                distances.append(dist)
+                if output_log:
+                    output_log.write(f'{r1.id}, {r2.id}, {dist}, {round(dist / aln_len, 3)}\n')
     min_dist, med_dist, max_dist = min(distances), median_low(distances), max(distances)
     min_frac, med_frac, max_frac = min_dist / aln_len, med_dist / aln_len, max_dist / aln_len
     print(f'Min distance: {round(min_frac, 3)} ({min_dist})')
     print(f'Median distance: {round(med_frac, 3)} ({round(med_dist, 1)})')
     print(f'Max distance: {round(max_frac, 3)} ({max_dist})')
+
+    if output_log:
+        output_log.close()
 
 
 if __name__ == '__main__':
